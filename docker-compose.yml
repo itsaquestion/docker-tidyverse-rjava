@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+  tidyverse-rjava:
+    image: imtass/tidyverse-rjava:3.5.3
+    build:
+      context: .
+    container_name: tidyverse-rjava
+    volumes:
+      - ./home:/home
+      - ./home/ncovsearch:/srv/shiny-server/ncovsearch
+      - "/etc/localtime:/etc/localtime:ro"
+    ports:
+      - "127.0.0.1:3838:3838"
+      - "1735:8787"
+    environment:
+      USER: ${RSTUDIO_USER}
+      ROOT: 'true'
+      PASSWORD: ${RSTUDIO_PWD}
+      DBHOST: '172.17.0.1'
+    restart: always
